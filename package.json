@@ -1,0 +1,8 @@
+{
+  "name": "ferre-reconstruye",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Avance académico con HTML, CSS, JavaScript y LocalStorage",
+  "scripts": { "start": "node servidor.cjs", "test": "node --test tests/*.test.cjs" },
+  "engines": { "node": ">=18" }
+}

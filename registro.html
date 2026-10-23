@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#163d32">
+    <title>Registro · FerreReconstruye</title>
+    <meta name="description" content="Gestión académica de usuarios e inventario para FerreReconstruye.">
+    <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <div class="autenticacion">
+        <aside class="presentacion"><a class="marca" href="index.html"><span class="isotipo"
+                    aria-hidden="true">F<span>↗</span></span><span>Ferre<span
+                        class="marca-acento">Reconstruye</span><small>HERRAMIENTAS PARA AVANZAR</small></span></a>
+            <div>
+                <p class="ceja">GESTIÓN FERRETERA</p>
+                <h1>Todo lo que necesitas.<br><em>Una base sólida.</em></h1>
+                <p>Organiza tu equipo y tu inventario para que cada proyecto siga creciendo.</p>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="plano"><svg viewBox="0 0 440 300" fill="none">
+                            <g stroke="currentColor" stroke-width="3">
+                                <path
+                                    d="M65 225h310M85 225V110l100-64 100 64v115M185 46v179M85 110h200M120 225v-65h42v65M208 140h48v38h-48zM303 225V130h55v95M295 130h72M310 162h40M310 192h40" />
+                                <path d="m60 72 20-20 18 18-20 20zm225-30 62 62-17 17-62-62z" />
+                                <circle cx="332" cy="52" r="17" />
+                            </g>
+                        </svg></div>
+                    <div class="art-label">BASE SÓLIDA. FUTURO EN MARCHA.</div>
+                </div>
+            </div>
+            <p class="pie-marca">FERRETERÍA · CONSTRUCCIÓN · SOLUCIONES</p>
+        </aside>
+        <main id="contenido" class="acceso">
+            <div class="acceso-interior"><span class="paso">01 / REGISTRO</span>
+                <h2>Crea tu cuenta</h2>
+                <p class="muted">Completa tus datos para empezar a trabajar.</p>
+                <div id="mensaje" class="mensaje" role="status" aria-live="polite"></div>
+                <form id="formulario"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text"
+                        required minlength="2" maxlength="60" autocomplete="given-name"><label
+                        for="apellido">Apellido</label><input id="apellido" name="apellido" type="text" required
+                        minlength="2" maxlength="60" autocomplete="family-name"><label for="correo">Correo
+                        electrónico</label><input id="correo" name="correo" type="email" required maxlength="254"
+                        autocomplete="username"><label for="password">Contraseña</label><input id="password"
+                        name="password" type="password" required autocomplete="new-password" minlength=8
+                        maxlength=128><label for="confirmacion">Confirmar contraseña</label><input id="confirmacion"
+                        name="confirmacion" type="password" required minlength="8" maxlength="128"
+                        autocomplete="new-password"><label for="rol">Rol</label><select id="rol" name="rol" required>
+                        <option value="">Selecciona una opción</option>
+                        <option>Administrador</option>
+                        <option>Usuario</option>
+                    </select>
+                    <p class="ayuda">Selección libre de rol solo para este taller. Crea primero una cuenta Administrador
+                        para gestionar el inventario.</p><button class="primario ancho" type="submit">Crear cuenta <span
+                            aria-hidden="true">↗</span></button>
+                </form>
+                <p class="cambio">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+                <p class="nota">Prototipo académico · Datos guardados solo en este navegador. Usa datos ficticios y una
+                    contraseña que no utilices en otros servicios.</p>
+            </div>
+        </main>
+    </div>
+    <script src="js/datos.js" defer></script>
+    <script src="js/almacen.js" defer></script>
+    <script src="js/registro.js" defer></script>
+</body>
+
+</html>

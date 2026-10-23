@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#163d32">
+    <title>Resumen · FerreReconstruye</title>
+    <meta name="description" content="Gestión académica de usuarios e inventario para FerreReconstruye.">
+    <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body class="verificando" data-pagina="dashboard">
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <div class="aplicacion">
+        <aside class="lateral"><a class="marca" href="index.html"><span class="isotipo"
+                    aria-hidden="true">F<span>↗</span></span><span>Ferre<span
+                        class="marca-acento">Reconstruye</span><small>HERRAMIENTAS PARA AVANZAR</small></span></a>
+            <p class="ceja">ESPACIO DE TRABAJO</p>
+            <nav aria-label="Navegación principal"><a href="dashboard.html" aria-current=page><span
+                        aria-hidden="true">▦</span>Resumen</a><a href="productos.html"><span
+                        aria-hidden="true">▤</span>Productos</a><a href="usuarios.html" data-admin><span
+                        aria-hidden="true">♙</span>Usuarios</a></nav>
+            <div class="lateral-pie"><strong>Construimos contigo.</strong>
+                <p>Un inventario organizado es el comienzo de cada gran proyecto.</p><span class="etiqueta">AVANCE
+                    ACADÉMICO</span>
+            </div>
+        </aside>
+        <div class="area">
+            <header class="barra"><span class="ubicacion">FERRECONSTRUYE / GESTIÓN</span>
+                <div class="sesion">
+                    <div><strong id="nombreSesion"></strong><span id="rolSesion"></span></div><button type="button"
+                        id="cerrarSesion" class="secundario">Cerrar sesión</button>
+                </div>
+            </header>
+            <main id="contenido">
+                <div class="titulo-pagina">
+                    <div>
+                        <p class="ceja">TU FERRETERÍA, EN ORDEN</p>
+                        <h1>Vista general</h1>
+                        <p class="muted">Una base clara para tomar mejores decisiones.</p>
+                    </div><span class="etiqueta activo">● Operación local</span>
+                </div>
+                <div id="mensaje" class="mensaje" role="status" aria-live="polite"></div>
+                <div class="contenido-protegido">
+                    <section class="banner">
+                        <div>
+                            <p class="ceja">CADA PIEZA CUENTA</p>
+                            <h2 id="bienvenida">Tu operación empieza aquí.</h2>
+                            <p>Ten a mano tus productos, existencias y equipo.<br>Todo listo para el próximo proyecto.
+                            </p><a href="productos.html" class="boton claro">Ver inventario <span
+                                    aria-hidden="true">↗</span></a>
+                        </div>
+                        <div class="banner-simbolo" aria-hidden="true">↗</div>
+                    </section>
+                    <section class="metricas" aria-label="Resumen del inventario">
+                        <article><span>Productos registrados</span><strong id="totalProductos">0</strong><small>Todo tu
+                                catálogo</small></article>
+                        <article><span>Existencias bajas</span><strong id="stockBajo">0</strong><small>Productos activos
+                                con 5 unidades o menos</small></article>
+                        <article><span>Valor del inventario activo</span><strong id="valorInventario">$
+                                0</strong><small>Precio × unidades disponibles</small></article>
+                        <article data-admin><span>Usuarios del equipo</span><strong
+                                id="totalUsuarios">0</strong><small>Cuentas registradas</small></article>
+                    </section>
+                    <h2 class="seccion-titulo">Tu espacio de gestión</h2>
+                    <section class="accesos"><a href="productos.html"><span class="icono-tarjeta"
+                                aria-hidden="true">▤</span>
+                            <h3>Inventario de productos</h3>
+                            <p>Consulta herramientas, materiales y existencias. Mantén tu catálogo al día.</p>
+                            <strong>Explorar productos ↗</strong>
+                        </a><a href="usuarios.html" data-admin><span class="icono-tarjeta" aria-hidden="true">♙</span>
+                            <h3>Equipo y usuarios</h3>
+                            <p>Gestiona cuentas, roles y estados de las personas que construyen contigo.</p>
+                            <strong>Gestionar usuarios ↗</strong>
+                        </a></section>
+                    <p class="nota">El rol Usuario consulta el catálogo. El rol Administrador gestiona productos y
+                        usuarios. Los datos permanecen en este navegador y no se sincronizan entre equipos.</p>
+                </div>
+            </main>
+            <footer>FerreReconstruye · Proyecto integrador <span>HTML / CSS / JavaScript / LocalStorage</span></footer>
+        </div>
+    </div>
+    <script src="js/datos.js" defer></script>
+    <script src="js/almacen.js" defer></script>
+    <script src="js/sesion.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+</body>
+
+</html>

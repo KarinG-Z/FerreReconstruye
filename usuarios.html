@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#163d32">
+    <title>Usuarios · FerreReconstruye</title>
+    <meta name="description" content="Gestión académica de usuarios e inventario para FerreReconstruye.">
+    <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body class="verificando" data-pagina="usuarios">
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <div class="aplicacion">
+        <aside class="lateral"><a class="marca" href="index.html"><span class="isotipo"
+                    aria-hidden="true">F<span>↗</span></span><span>Ferre<span
+                        class="marca-acento">Reconstruye</span><small>HERRAMIENTAS PARA AVANZAR</small></span></a>
+            <p class="ceja">ESPACIO DE TRABAJO</p>
+            <nav aria-label="Navegación principal"><a href="dashboard.html"><span
+                        aria-hidden="true">▦</span>Resumen</a><a href="productos.html"><span
+                        aria-hidden="true">▤</span>Productos</a><a href="usuarios.html" aria-current=page
+                    data-admin><span aria-hidden="true">♙</span>Usuarios</a></nav>
+            <div class="lateral-pie"><strong>Construimos contigo.</strong>
+                <p>Un inventario organizado es el comienzo de cada gran proyecto.</p><span class="etiqueta">AVANCE
+                    ACADÉMICO</span>
+            </div>
+        </aside>
+        <div class="area">
+            <header class="barra"><span class="ubicacion">FERRECONSTRUYE / GESTIÓN</span>
+                <div class="sesion">
+                    <div><strong id="nombreSesion"></strong><span id="rolSesion"></span></div><button type="button"
+                        id="cerrarSesion" class="secundario">Cerrar sesión</button>
+                </div>
+            </header>
+            <main id="contenido">
+                <div class="titulo-pagina">
+                    <div>
+                        <p class="ceja">TU FERRETERÍA, EN ORDEN</p>
+                        <h1>Equipo y usuarios</h1>
+                        <p class="muted">Administra las personas, roles y accesos de tu equipo.</p>
+                    </div><button id="nuevo" class="primario" type="button">+ Nuevo usuario</button>
+                </div>
+                <div id="mensaje" class="mensaje" role="status" aria-live="polite"></div>
+                <div class="contenido-protegido">
+                    <section class="panel" aria-label="Listado de usuarios">
+                        <div class="filtros">
+                            <div><label for="buscar">Buscar usuarios</label><input type="search" id="buscar"
+                                    placeholder="Nombre, apellido o correo…"></div>
+                            <div><label for="filtro">Rol</label><select id="filtro">
+                                    <option value="">Todos los roles</option>
+                                    <option>Administrador</option>
+                                    <option>Usuario</option>
+                                </select></div>
+                            <div><label for="filtroEstado">Estado</label><select id="filtroEstado">
+                                    <option value="">Todos los estados</option>
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select></div>
+                        </div>
+                        <p id="resultados" class="contador" role="status" aria-live="polite"></p>
+                        <div class="tabla-scroll" role="region" aria-label="Tabla de usuarios" tabindex="0">
+                            <table>
+                                <caption class="sr-only">Usuarios registrados</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nombre y apellido</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Rol</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="filas"></tbody>
+                            </table>
+                        </div>
+                        <div id="vacio" class="vacio"><span aria-hidden="true">▤</span>
+                            <h2>No hay resultados</h2>
+                            <p>Agrega tu primer registro o ajusta la búsqueda y los filtros.</p>
+                        </div>
+                    </section>
+                </div>
+            </main>
+            <footer>FerreReconstruye · Proyecto integrador <span>HTML / CSS / JavaScript / LocalStorage</span></footer>
+        </div>
+    </div>
+    <dialog id="editor" aria-labelledby="tituloEditor">
+        <div class="dialogo-cabecera">
+            <h2 id="tituloEditor">Nuevo registro</h2><button type="button" data-cerrar="editor" class="cerrar"
+                aria-label="Cerrar formulario">×</button>
+        </div>
+        <form id="formulario">
+            <p class="ayuda">Todos los campos son obligatorios, salvo indicación contraria.</p><label
+                for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" required minlength="2"
+                maxlength="60" autocomplete="given-name"><label for="apellido">Apellido</label><input id="apellido"
+                name="apellido" type="text" required minlength="2" maxlength="60" autocomplete="family-name"><label
+                for="correo">Correo electrónico</label><input id="correo" name="correo" type="email" required
+                maxlength="254" autocomplete="off"><label for="password">Contraseña</label><input id="password"
+                name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"
+                aria-describedby="ayudaPassword">
+            <p class="ayuda" id="ayudaPassword"></p><label for="rol">Rol</label><select id="rol" name="rol" required>
+                <option value="">Selecciona una opción</option>
+                <option>Administrador</option>
+                <option>Usuario</option>
+            </select><label for="estado">Estado</label><select id="estado" name="estado" required>
+                <option value="">Selecciona una opción</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+            </select>
+            <p id="errorFormulario" class="error-formulario" role="alert"></p>
+            <div class="botonera"><button type="button" data-cerrar="editor" class="secundario">Cancelar</button><button
+                    type="submit" class="primario">Guardar usuario</button></div>
+        </form>
+    </dialog>
+    <dialog id="confirmar" aria-labelledby="tituloEliminar" aria-describedby="detalleEliminar">
+        <h2 id="tituloEliminar">¿Eliminar este registro?</h2>
+        <p id="detalleEliminar"></p>
+        <p id="errorEliminar" class="error-formulario" role="alert"></p>
+        <div class="botonera"><button type="button" data-cerrar="confirmar" class="secundario" autofocus>Conservar
+                registro</button><button type="button" id="eliminarDefinitivo" class="destructivo">Sí, eliminar</button>
+        </div>
+    </dialog>
+    <script src="js/datos.js" defer></script>
+    <script src="js/almacen.js" defer></script>
+    <script src="js/sesion.js" defer></script>
+    <script src="js/crud.js" defer></script>
+</body>
+
+</html>
