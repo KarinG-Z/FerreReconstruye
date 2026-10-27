@@ -1,8 +1,8 @@
 'use strict';
-function resumen() {
+async function resumen() {
   if (!usuarioActual) return;
   try {
-    const productos = Ferre.leer('productos');
+    const productos = (await FerreApi.listarProductos()).productos;
     const activos = productos.filter(p => p.estado === 'Activo');
     document.getElementById('bienvenida').textContent = `Hola, ${usuarioActual.nombre}.`;
     document.getElementById('totalProductos').textContent = productos.length;
@@ -11,5 +11,7 @@ function resumen() {
     document.getElementById('totalUsuarios').textContent = Ferre.leer('usuarios').length;
   } catch (e) { Ferre.mensaje(e.message, true); }
 }
+
 resumen();
+
 window.addEventListener('storage', resumen);

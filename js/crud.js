@@ -15,11 +15,11 @@
     const b = document.createElement('button'); b.type = 'button'; b.textContent = texto; b.className = `accion ${clase}`;
     b.addEventListener('click', accion); fila.append(b);
   }
-  function cargar() {
+  async function cargar() {
     if (!usuarioActual) return;
     try {
       if (esUsuario && !puedeEditar()) return;
-      const todos = Ferre.leer(clave);
+      const todos = esUsuario ? Ferre.leer(clave) : (await FerreApi.listarProductos()).productos;
       const q = document.getElementById('buscar').value.trim().toLocaleLowerCase('es');
       const filtro = document.getElementById('filtro').value;
       const estado = document.getElementById('filtroEstado').value;
@@ -75,6 +75,14 @@
     try {
       autorizar();
       const datos = Object.fromEntries(new FormData(formulario));
+      if (!esUsuario) {
+      if (editando) await FerreApi.actualizarProducto(editando, datos);
+      else await FerreApi.crearProducto(datos);
+      dialogo.close();
+      Ferre.mensaje(`Producto ${editando ? 'actualizado' : 'registrado'} correctamente.`);
+       cargar();
+      return;
+      }
       let todos = Ferre.leer(clave);
       let nuevo = esUsuario ? FerreDatos.validarUsuario(datos, todos, editando) : FerreDatos.validarProducto(datos, todos, editando);
       let credencial;
