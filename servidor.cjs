@@ -4,7 +4,25 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const raiz = __dirname;
-const tipos = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml' };
+
+const tipos = {
+  ".html": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".svg": "image/svg+xml",
+
+  // Imágenes
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".ico": "image/x-icon",
+
+  // Videos
+  ".mp4": "video/mp4",
+  ".webm": "video/webm"
+};
+
 http.createServer((req, res) => {
   let ruta;
   try { ruta = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); }

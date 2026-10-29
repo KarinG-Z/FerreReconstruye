@@ -1,4 +1,6 @@
 'use strict';
+const enlaceIngresoPublico = document.querySelector('a[href="login.html"]');
+if (enlaceIngresoPublico && new URLSearchParams(location.search).get('continuar') === 'cotizaciones') enlaceIngresoPublico.href = 'login.html?continuar=cotizaciones';
 document.getElementById('formulario').addEventListener('submit', async event => {
   event.preventDefault();
   const boton = event.submitter;
@@ -13,7 +15,7 @@ document.getElementById('formulario').addEventListener('submit', async event => 
     usuarios = Ferre.leer('usuarios');
     FerreDatos.validarUsuario(datos, usuarios);
     Ferre.guardar('usuarios', [...usuarios, { ...usuario, id: crypto.randomUUID(), credencial }]);
-    location.href = 'login.html?registro=ok';
+    location.href = 'login.html?registro=ok' + (new URLSearchParams(location.search).get('continuar') === 'cotizaciones' ? '&continuar=cotizaciones' : '');
   } catch (e) { Ferre.mensaje(e.message, true); }
   finally { boton.disabled = false; }
 });

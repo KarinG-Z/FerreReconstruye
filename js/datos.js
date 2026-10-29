@@ -19,10 +19,20 @@
     exigir(p.codigo.length >= 2 && p.codigo.length <= 24, 'El código debe tener entre 2 y 24 caracteres.');
     exigir(!productos.some(x => x.id !== id && x.codigo.toUpperCase() === p.codigo), 'Ya existe un producto con ese código.');
     exigir(p.nombre.length >= 2 && p.nombre.length <= 100, 'El nombre debe tener entre 2 y 100 caracteres.');
-    exigir(['Herramientas', 'Construcción', 'Electricidad', 'Plomería', 'Pinturas', 'Seguridad'].includes(p.categoria), 'Selecciona una categoría válida.');
+    exigir(['Herramientas', 'Construcción', 'Electricidad', 'Plomería', 'Pinturas', 'Seguridad', 'Herramientas eléctricas', 'Medición', 'Tornillería', 'Pintura', 'Seguridad industrial', 'Jardinería'].includes(p.categoria), 'Selecciona una categoría válida.');
     exigir(texto(datos.precio) !== '' && Number.isFinite(p.precio) && p.precio >= 0 && p.precio <= 1e10 && Math.abs(p.precio * 100 - Math.round(p.precio * 100)) < 0.001, 'Ingresa un precio válido, con hasta dos decimales.');
     exigir(texto(datos.cantidad) !== '' && Number.isSafeInteger(p.cantidad) && p.cantidad >= 0 && p.cantidad <= 1e7, 'Las existencias deben ser un número entero entre 0 y 10.000.000.');
     exigir(estados.includes(p.estado), 'Selecciona un estado válido.');
+    if (datos.imagen !== undefined) {
+      const imagen = texto(datos.imagen);
+      if (imagen) {
+        const local = /^\/imagenes\/[a-f0-9]{64}\.(?:png|jpg|webp)$/.test(imagen) || /^assets\/productos\/HER-\d{3}\.(?:png|jpg|webp)$/.test(imagen);
+        let url;
+        try { url = new URL(imagen); } catch { /* Puede ser una ruta de imagen local validada arriba. */ }
+        exigir(imagen.length <= 2000 && (local || (url && ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password)), 'Usa una URL de imagen http/https o sube una foto desde tu equipo.');
+      }
+      p.imagen = imagen;
+    }
     return p;
   }
   const api = { exigir, texto, correo, validarUsuario, validarProducto };

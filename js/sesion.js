@@ -3,7 +3,7 @@ window.usuarioActual = null;
 function comprobarSesion() {
   try {
     window.usuarioActual = Ferre.sesion();
-    if (!usuarioActual) { location.replace('login.html'); return; }
+    if (!usuarioActual) { location.replace(document.body.dataset.pagina === 'cotizaciones' ? 'login.html?continuar=cotizaciones' : 'login.html'); return; }
     Ferre.guardarSesion(usuarioActual);
     document.getElementById('nombreSesion').textContent = `${usuarioActual.nombre} ${usuarioActual.apellido}`;
     document.getElementById('rolSesion').textContent = usuarioActual.rol;

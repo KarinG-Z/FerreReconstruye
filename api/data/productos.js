@@ -128,6 +128,11 @@ const productos = datosProductos.map(
     estado: "Activo"
   })
 );
+const imagenesGuardadas = require('../services/imagenes').leerIndice();
+const fotosCatalogo = require('./imagenes-catalogo.json');
+for (const producto of productos) {
+  producto.imagen = Object.hasOwn(imagenesGuardadas, producto.codigo) ? imagenesGuardadas[producto.codigo] : fotosCatalogo[producto.codigo] || '';
+}
 
 module.exports = productos;
 

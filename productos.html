@@ -9,7 +9,7 @@
     <meta name="description" content="Gestión académica de usuarios e inventario para FerreReconstruye.">
     <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/estilos.css">
-</head>
+<link rel="stylesheet" href="css/fotos.css"></head>
 
 <body class="verificando" data-pagina="productos">
     <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -21,7 +21,7 @@
             <nav aria-label="Navegación principal"><a href="dashboard.html"><span
                         aria-hidden="true">▦</span>Resumen</a><a href="productos.html" aria-current=page><span
                         aria-hidden="true">▤</span>Productos</a><a href="usuarios.html" data-admin><span
-                        aria-hidden="true">♙</span>Usuarios</a></nav>
+                        aria-hidden="true">♙</span>Usuarios</a><a href="cotizaciones.html"><span aria-hidden="true">▧</span>Cotizaciones</a></nav>
             <div class="lateral-pie"><strong>Construimos contigo.</strong>
                 <p>Un inventario organizado es el comienzo de cada gran proyecto.</p><span class="etiqueta">AVANCE
                     ACADÉMICO</span>
@@ -55,7 +55,7 @@
                                     <option>Electricidad</option>
                                     <option>Plomería</option>
                                     <option>Pinturas</option>
-                                    <option>Seguridad</option>
+                                    <option>Seguridad</option><option>Jardinería</option><option>Seguridad industrial</option><option>Pintura</option><option>Tornillería</option><option>Medición</option><option>Herramientas eléctricas</option>
                                 </select></div>
                             <div><label for="filtroEstado">Estado</label><select id="filtroEstado">
                                     <option value="">Todos los estados</option>
@@ -110,7 +110,7 @@
                 <option>Electricidad</option>
                 <option>Plomería</option>
                 <option>Pinturas</option>
-                <option>Seguridad</option>
+                <option>Seguridad</option><option>Jardinería</option><option>Seguridad industrial</option><option>Pintura</option><option>Tornillería</option><option>Medición</option><option>Herramientas eléctricas</option>
             </select><label for="precio">Precio unitario (COP)</label><input id="precio" name="precio" type="number"
                 required min="0" max="10000000000" step="0.01" inputmode="decimal"><label for="cantidad">Existencias
                 (unidades)</label><input id="cantidad" name="cantidad" type="number" required min="0" max="10000000"
@@ -120,7 +120,7 @@
                 <option>Activo</option>
                 <option>Inactivo</option>
             </select>
-            <p id="errorFormulario" class="error-formulario" role="alert"></p>
+            <section class="bloque-foto" aria-labelledby="tituloFoto"><h3 id="tituloFoto">Imagen del producto · opcional</h3><div class="foto-edicion"><div id="vistaImagen"></div><div><label for="archivoImagen">Subir una foto desde tu equipo</label><input type="file" id="archivoImagen" accept="image/png,image/jpeg,image/webp"><p class="ayuda">PNG, JPEG o WebP. Hasta 8 MB; se optimiza automáticamente.</p><button type="button" id="quitarImagen" class="accion">Quitar imagen</button></div></div><label for="imagen">O pegar un enlace directo a una imagen</label><input type="text" id="imagen" name="imagen" maxlength="2000" placeholder="https://ejemplo.com/producto.jpg"><p class="ayuda">Las fotos subidas se guardan en la API. Para enlaces externos, usa una imagen con permiso de uso.</p><p id="estadoImagen" role="status" aria-live="polite"></p></section><p id="errorFormulario" class="error-formulario" role="alert"></p>
             <div class="botonera"><button type="button" data-cerrar="editor" class="secundario">Cancelar</button><button
                     type="submit" class="primario">Guardar producto</button></div>
         </form>
@@ -136,7 +136,7 @@
         <script src="js/datos.js" defer></script>
         <script src="js/almacen.js" defer></script>
         <script src="js/api.js" defer></script>
-        <script src="js/sesion.js" defer></script>
+        <script src="js/fotos.js" defer></script><script src="js/sesion.js" defer></script>
         <script src="js/crud.js" defer></script>
 </body>
 

@@ -4,12 +4,357 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="refresh" content="0;url=login.html">
-    <title>FerreReconstruye</title>
+    <meta name="theme-color" content="#163d32">
+    <title>FerreReconstruye · Todo para construir</title>
+    <meta name="description"
+        content="Explora herramientas, materiales y productos para tu obra. Prepara tu cotización con FerreReconstruye.">
+    <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/tienda.css">
 </head>
 
 <body>
-    <p><a href="login.html">Ingresar a FerreReconstruye</a></p>
+    <a class="saltar-tienda" href="#principal">Saltar al contenido</a>
+    <div class="anuncio-tienda"><span>De una pequeña reparación a una gran obra. <a href="#catalogo">Construimos contigo
+                ↗</a></span><span class="region-tienda">Colombia <span aria-hidden="true">·</span> Precios en COP</span>
+    </div>
+    <header class="tienda-header">
+        <div class="cabecera-tienda"><a href="index.html" class="tienda-marca"
+                aria-label="FerreReconstruye, inicio"><img src="assets/marca.svg"
+                    alt=""><span>Ferre<span>Reconstruye</span><small>UNA BASE SÓLIDA PARA CADA
+                        PROYECTO</small></span></a>
+            <form id="buscarTienda" role="search"><label for="busquedaTienda" class="sr-only">Buscar en el
+                    catálogo</label><input id="busquedaTienda" type="search"
+                    placeholder="¿Qué necesitas para tu próximo proyecto?" autocomplete="off"><button
+                    aria-label="Buscar productos" type="submit"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="6.5" />
+                        <path d="m16 16 5 5" />
+                    </svg></button></form>
+            <div class="acciones-header"><a href="#como-cotizar" class="ayuda-header">Cómo cotizar</a><a
+                    href="login.html" id="accesoCuenta" class="icono-header" aria-label="Ingresar a mi cuenta"><svg
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M4 22v-3a8 8 0 0 1 16 0v3" />
+                    </svg><span>Mi cuenta</span></a><button class="icono-header lista-header" type="button"
+                    id="abrirLista" aria-label="Abrir mi cotización"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 7h14l2 15H3L5 7Z" />
+                        <path d="M8 9V6a4 4 0 0 1 8 0v3" />
+                    </svg><span class="contador-lista" id="contadorLista">0</span><span>Mi cotización</span></button>
+            </div>
+        </div>
+        <nav class="navegacion-tienda" aria-label="Navegación del sitio público"><button type="button" id="menuMovil"
+                aria-expanded="false" aria-controls="enlacesTienda"><svg width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M3 6h18M3 12h18M3 18h18" />
+                </svg> <span>Menú</span></button>
+            <div id="enlacesTienda"><a href="index.html" aria-current="page">Inicio</a><a href="#catalogo">Todos los
+                    productos</a><a href="#categorias">Categorías</a><a href="#como-cotizar">Cotiza tu proyecto</a><a
+                    href="#nosotros">Nosotros</a></div><a href="login.html" id="accesoGestion">Acceso al sistema ↗</a>
+        </nav>
+    </header>
+    <main id="principal">
+
+        <section class="hero-tienda" aria-label="Presentación de FerreReconstruye">
+
+            <!-- VIDEO DE FONDO -->
+            <video id="videoHero" class="hero-video" autoplay muted loop playsinline preload="auto"
+                poster="assets/tienda/taller-ferre.png" aria-hidden="true">
+                <source src="assets/tienda/hero-ferre.mp4" type="video/mp4">
+            </video>
+
+            <!-- CAPA OSCURA -->
+            <div class="hero-sombra" aria-hidden="true"></div>
+
+            <!-- TEXTOS Y BOTÓN -->
+            <div class="hero-interior">
+
+                <p id="heroCeja">
+                    PARA QUIENES HACEN QUE LAS COSAS PASEN
+                </p>
+
+                <h1 id="heroTitulo">
+                    GRANDES IDEAS.<br>
+                    HERRAMIENTAS<br>
+                    <span>A SU ALTURA.</span>
+                </h1>
+
+                <p id="heroDescripcion">
+                    Todo empieza con una buena herramienta.
+                    Encuentra lo que necesitas y dale forma
+                    a tu próximo proyecto.
+                </p>
+
+                <a id="heroEnlace" href="#catalogo" class="boton-tienda dorado">
+                    Explorar productos
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+
+            <!-- COMPATIBILIDAD TEMPORAL CON EL CARRUSEL ANTIGUO -->
+            <div class="hero-numeracion" hidden>
+                <span id="numeroSlide">01</span><span>/ 03</span>
+            </div>
+
+            <div class="controles-hero" hidden>
+                <button type="button" id="slideAnterior">←</button>
+                <div>
+                    <button type="button" data-slide="0"></button>
+                    <button type="button" data-slide="1"></button>
+                    <button type="button" data-slide="2"></button>
+                </div>
+                <button type="button" id="slideSiguiente">→</button>
+                <button type="button" id="pausarHero">▶</button>
+            </div>
+
+        </section>
+
+        <section class="franja-confianza" aria-label="Tu experiencia FerreReconstruye">
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg><span>Todo para tu proyecto</span></div>
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M8 5h13M8 12h13M8 19h13M3 5h1M3 12h1M3 19h1" />
+                </svg><span>Cotizaciones por volumen</span></div>
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m6 12 4 4 8-9" />
+                    <path d="M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6l-9-4Z" />
+                </svg><span>Precios claros en COP</span></div>
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 2h10l4 4v16H5V2Z" />
+                    <path d="M14 2v5h5M8 12h8M8 16h8" />
+                </svg><span>Tu PREFACTURA lista</span></div>
+        </section>
+        <section class="seccion-tienda categorias-tienda" id="categorias">
+            <div class="encabezado-seccion">
+                <div>
+                    <p class="ceja-tienda">ENCUENTRA TU PRÓXIMA HERRAMIENTA</p>
+                    <h2>UN PROYECTO.<br>MUCHAS POSIBILIDADES.</h2>
+                </div><a class="enlace-flecha" href="#catalogo">Explorar el catálogo <svg width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 12h18m-7-7 7 7-7 7" />
+                    </svg></a>
+            </div>
+            <div class="grilla-categorias" id="tarjetasCategorias"></div>
+        </section>
+        <section class="seccion-tienda destacados-tienda" aria-labelledby="tituloDestacados">
+            <div class="encabezado-seccion">
+                <div>
+                    <p class="ceja-tienda">LISTOS PARA PONER MANOS A LA OBRA</p>
+                    <h2 id="tituloDestacados">EQUIPA TU PRÓXIMO PROYECTO.</h2>
+                </div>
+                <div class="flechas-productos"><button type="button" id="destacadosAnterior"
+                        aria-label="Ver productos destacados anteriores">←</button><button type="button"
+                        id="destacadosSiguiente" aria-label="Ver más productos destacados">→</button></div>
+            </div>
+            <div class="tabs-tienda" role="group" aria-label="Seleccionar productos destacados"><button
+                    data-destacados="todos" type="button" aria-pressed="true">Selección Ferre</button><button
+                    data-destacados="electricas" type="button" aria-pressed="false">Herramientas
+                    eléctricas</button><button data-destacados="obra" type="button" aria-pressed="false">Para tu
+                    obra</button></div>
+            <div class="productos-carrusel" id="destacados">
+                <p class="estado-productos">Cargando productos…</p>
+            </div>
+        </section>
+        <section class="bloque-proyecto" id="como-cotizar">
+            <div class="proyecto-imagen"><img src="assets/tienda/ferreteria-cotizaciones.jpg"
+                    alt="Ferretero junto a herramientas y materiales en la entrada de una ferretería"
+                    loading="lazy"><span>DE LA IDEA<br>A LA
+                    OBRA.</span></div>
+            <div class="proyecto-texto">
+                <p class="ceja-tienda">TU LISTA. TUS CANTIDADES. TU PROYECTO.</p>
+                <h2>COTIZAR EN GRANDE<br>AHORA ES MÁS FÁCIL.</h2>
+                <p>Elige productos, reúne las cantidades que necesitas y lleva tu lista a Cotizaciones para preparar una
+                    PREFACTURA.</p>
+                <ol>
+                    <li><span>01</span>
+                        <div><strong>Explora y agrega.</strong>
+                            <p>Busca por nombre o código y guarda tus productos en Mi cotización.</p>
+                        </div>
+                    </li>
+                    <li><span>02</span>
+                        <div><strong>Ajusta las cantidades.</strong>
+                            <p>Una reparación pequeña o una lista de materiales para toda la obra.</p>
+                        </div>
+                    </li>
+                    <li><span>03</span>
+                        <div><strong>Prepara tu PREFACTURA.</strong>
+                            <p>Continúa en el sistema, completa los datos e imprime o guarda en PDF.</p>
+                        </div>
+                    </li>
+                </ol><button class="boton-tienda verde" type="button" id="cotizarProyecto">Empezar mi cotización <svg
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 12h18m-7-7 7 7-7 7" />
+                    </svg></button>
+            </div>
+        </section>
+        <section class="seccion-tienda catalogo-tienda" id="catalogo">
+            <div class="encabezado-seccion">
+                <div>
+                    <p class="ceja-tienda">MATERIALES Y HERRAMIENTAS, EN UN SOLO LUGAR</p>
+                    <h2>ELIGE. AGREGA. CONSTRUYE.</h2>
+                </div><span class="leyenda-precios">Precios base en pesos colombianos</span>
+            </div>
+            <div class="filtros-publicos">
+                <div><label for="categoriaPublica">Categoría</label><select id="categoriaPublica">
+                        <option value="">Todas las categorías</option>
+                    </select></div>
+                <div><label for="ordenPublico">Ordenar por</label><select id="ordenPublico">
+                        <option value="nombre">Nombre A–Z</option>
+                        <option value="precio-asc">Menor precio</option>
+                        <option value="precio-desc">Mayor precio</option>
+                    </select></div><label class="check-disponibles"><input id="soloDisponibles" type="checkbox">Con
+                    existencias</label><button type="button" id="limpiarFiltros">Limpiar filtros</button>
+            </div>
+            <div class="estado-catalogo">
+                <p id="conteoCatalogo" role="status" aria-live="polite">Consultando catálogo…</p><button
+                    id="reintentarCatalogo" type="button" hidden>Volver a cargar</button>
+            </div>
+            <div class="grilla-productos" id="productosPublicos"></div>
+            <div class="sin-productos" id="sinProductos" hidden>
+                <h3>No encontramos productos con esos filtros.</h3>
+                <p>Prueba otro nombre, código o categoría.</p>
+            </div>
+            <nav class="paginacion-tienda" aria-label="Páginas del catálogo"><button type="button" id="paginaAnterior">←
+                    Anterior</button><span id="paginaActual" role="status">1 / 1</span><button type="button"
+                    id="paginaSiguiente">Siguiente →</button></nav>
+            <p class="nota-catalogo">Fotografías de referencia. Los impuestos y condiciones se revisan al preparar la
+                cotización. Agregar un producto a tu lista no reserva existencias.</p>
+        </section>
+        <section class="nosotros-tienda seccion-tienda" id="nosotros">
+            <div>
+                <p class="ceja-tienda">FERRECONSTRUYE</p>
+                <h2>UNA BASE SÓLIDA<br>PARA LO QUE VIENE.</h2>
+            </div>
+            <div>
+                <p>Creemos que cada proyecto comienza mucho antes del primer corte o del primer ladrillo: comienza
+                    cuando encuentras lo que necesitas para hacerlo realidad.</p>
+                <p>Por eso reunimos herramientas, materiales y un proceso de cotización pensado para organizar tu
+                    compra, comparar cantidades y avanzar con claridad.</p><a class="enlace-flecha"
+                    href="#categorias">Encuentra lo que necesitas <svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 12h18m-7-7 7 7-7 7" />
+                    </svg></a>
+            </div>
+        </section>
+        <section class="seccion-tienda preguntas-tienda" id="ayuda">
+            <div>
+                <p class="ceja-tienda">ANTES DE PONERTE EN MARCHA</p>
+                <h2>TE LO HACEMOS FÁCIL.</h2>
+                <p>Resuelve tus dudas sobre el catálogo y la preparación de tu cotización.</p>
+            </div>
+            <div>
+                <details>
+                    <summary>¿Necesito una cuenta para explorar productos?</summary>
+                    <p>Puedes consultar todo el catálogo y armar tu lista sin iniciar sesión. Para pasar al módulo
+                        Cotizaciones y guardar tu PREFACTURA, ingresa con tu cuenta.</p>
+                </details>
+                <details>
+                    <summary>¿Puedo cotizar cantidades grandes?</summary>
+                    <p>Sí. Ajusta las cantidades en Mi cotización. En el módulo Cotizaciones también puedes pegar listas
+                        desde Excel o importar un archivo CSV con códigos y cantidades.</p>
+                </details>
+                <details>
+                    <summary>¿Agregar un producto reserva sus existencias?</summary>
+                    <p>No. Tu lista es una selección para cotizar. La disponibilidad y las condiciones deben revisarse
+                        antes de confirmar una compra.</p>
+                </details>
+                <details>
+                    <summary>¿La PREFACTURA es un comprobante de pago?</summary>
+                    <p>No. La PREFACTURA presenta los productos, cantidades e importes de la cotización; no acredita un
+                        pago ni constituye una factura fiscal.</p>
+                </details>
+            </div>
+        </section>
+        <section class="cta-tienda">
+            <p>LO QUE IMAGINAS,<br><span>EMPIEZA AQUÍ.</span></p><a href="#catalogo" class="boton-tienda dorado">Arma tu
+                próxima cotización <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 12h18m-7-7 7 7-7 7" />
+                </svg></a>
+        </section>
+    </main>
+    <footer class="footer-tienda">
+        <div><a href="index.html" class="tienda-marca" aria-label="FerreReconstruye, inicio"><img src="assets/marca.svg"
+                    alt=""><span>Ferre<span>Reconstruye</span><small>UNA BASE SÓLIDA PARA CADA
+                        PROYECTO</small></span></a>
+            <p>Herramientas y materiales para transformar ideas en proyectos.</p><span>Colombia · Precios en COP</span>
+        </div>
+        <div>
+            <h2>Explora</h2><a href="#catalogo">Todos los productos</a><a href="#categorias">Categorías</a><a
+                href="#nosotros">Nosotros</a>
+        </div>
+        <div>
+            <h2>Tu proyecto</h2><a href="#como-cotizar">Cómo cotizar</a><button type="button" id="listaDesdeFooter">Mi
+                cotización</button><a href="#ayuda">Preguntas frecuentes</a>
+        </div>
+        <div>
+            <h2>Tu cuenta</h2><a href="login.html">Ingresar al sistema</a><a href="registro.html">Crear una cuenta</a><a
+                href="dashboard.html">Panel de gestión</a>
+        </div>
+        <div class="footer-base"><span>© <span id="anioTienda">2026</span> FerreReconstruye</span><span>Construimos
+                contigo. · Catálogo de referencia</span></div>
+    </footer>
+    <div class="toast-tienda" id="mensajePublico" role="status" aria-live="polite"></div>
+    <dialog class="lista-dialogo" id="listaDialogo" aria-labelledby="tituloLista">
+        <header>
+            <div>
+                <p class="ceja-tienda">TU PROYECTO TOMA FORMA</p>
+                <h2 id="tituloLista">Mi cotización</h2>
+            </div><button class="cerrar-tienda" type="button" data-cerrar="listaDialogo"
+                aria-label="Cerrar mi cotización"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="m6 6 12 12M6 18 18 6" />
+                </svg></button>
+        </header>
+        <p class="intro-lista">Reúne los productos para tu proyecto y ajusta sus cantidades.</p>
+        <div id="itemsLista"></div>
+        <div class="lista-resumen">
+            <div><span>Subtotal base estimado</span><strong id="subtotalLista">$ 0</strong></div>
+            <p>Impuestos y cargos se revisan en Cotizaciones. Esta lista no reserva existencias.</p><button
+                id="continuarCotizacion" class="boton-tienda verde" type="button">Continuar a Cotizaciones <svg
+                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 12h18m-7-7 7 7-7 7" />
+                </svg></button><button data-cerrar="listaDialogo" class="seguir-explorando" type="button">Seguir
+                explorando</button>
+            <p id="errorLista" role="alert"></p>
+        </div>
+    </dialog>
+    <dialog class="detalle-dialogo" id="detalleDialogo" aria-labelledby="tituloDetalle"><button type="button"
+            class="cerrar-tienda" data-cerrar="detalleDialogo" aria-label="Cerrar detalle del producto"><svg width="24"
+                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m6 6 12 12M6 18 18 6" />
+            </svg></button>
+        <div id="detallePublico"></div>
+    </dialog>
+    <noscript>
+        <p class="sin-js">Activa JavaScript para consultar el catálogo y preparar tu cotización. <a
+                href="login.html">Ingresar al sistema</a></p>
+    </noscript>
+    <script src="js/datos.js" defer></script>
+    <script src="js/almacen.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/fotos.js" defer></script>
+    <script src="js/tienda-datos.js" defer></script>
+    <script src="js/tienda.js" defer></script>
 </body>
 
 </html>

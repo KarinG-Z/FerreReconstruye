@@ -5,6 +5,7 @@
   "description": "Avance académico con HTML, CSS, JavaScript y LocalStorage",
   "scripts": {
     "start": "node servidor.cjs",
+    "api": "node api/app.js",
     "test": "node --test tests/*.test.cjs"
   },
   "engines": {

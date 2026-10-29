@@ -8,6 +8,7 @@
   const confirmar = document.getElementById('confirmar');
   let editando = null;
   let eliminando = null;
+  const fotos = esUsuario ? null : FerreFotos.configurar();
   const puedeEditar = () => Ferre.sesion()?.rol === 'Administrador';
   function autorizar() { FerreDatos.exigir(puedeEditar(), 'Solo un administrador puede realizar cambios.'); }
   function celda(fila, valor) { const td = document.createElement('td'); td.textContent = valor; fila.append(td); return td; }
@@ -38,7 +39,10 @@
         if (esUsuario) {
           celda(fila, `${x.nombre} ${x.apellido}`); celda(fila, x.correo); celda(fila, x.rol);
         } else {
-          celda(fila, x.codigo).className = 'codigo'; celda(fila, x.nombre); celda(fila, x.categoria);
+          celda(fila, x.codigo).className = 'codigo';
+          const producto = celda(fila, ''); const presentacion = document.createElement('div'); presentacion.className = 'producto-con-foto';
+          const nombre = document.createElement('span'); nombre.textContent = x.nombre;
+          presentacion.append(FerreFotos.crear(x.imagen, x.nombre), nombre); producto.append(presentacion); celda(fila, x.categoria);
           celda(fila, Ferre.dinero(x.precio)); const stock = celda(fila, x.cantidad); if (x.cantidad <= 5) stock.className = 'stock-bajo';
         }
         const estadoTd = celda(fila, ''); const etiqueta = document.createElement('span');
@@ -66,6 +70,7 @@
       document.getElementById('errorFormulario').textContent = '';
       document.getElementById('tituloEditor').textContent = `${x ? 'Editar' : 'Nuevo'} ${singular.toLowerCase()}`;
       if (x) for (const campo of formulario.elements) if (campo.name && campo.name !== 'password' && x[campo.name] !== undefined) campo.value = x[campo.name];
+      fotos?.restablecer(x?.imagen || '');
       if (esUsuario) { formulario.elements.password.required = !x; document.getElementById('ayudaPassword').textContent = x ? 'Déjala vacía para conservar la contraseña actual.' : 'Entre 8 y 128 caracteres.'; }
       dialogo.showModal();
     } catch (e) { Ferre.mensaje(e.message, true); }
@@ -76,6 +81,7 @@
       autorizar();
       const datos = Object.fromEntries(new FormData(formulario));
       if (!esUsuario) {
+      fotos.validar();
       if (editando) await FerreApi.actualizarProducto(editando, datos);
       else await FerreApi.crearProducto(datos);
       dialogo.close();
@@ -115,9 +121,14 @@
     document.getElementById('detalleEliminar').textContent = `Se eliminará ${x.nombre}${esUsuario ? ' ' + x.apellido : ' (' + x.codigo + ')'}. Esta acción no se puede deshacer.`;
     document.getElementById('errorEliminar').textContent = ''; confirmar.showModal();
   }
-  document.getElementById('eliminarDefinitivo').addEventListener('click', () => {
+  document.getElementById('eliminarDefinitivo').addEventListener('click', async () => {
     try {
-      autorizar(); const datos = Ferre.leer(clave); protegerAdministrador(datos, eliminando, null);
+      autorizar();
+      if (!esUsuario) {
+        await FerreApi.eliminarProducto(eliminando);
+        confirmar.close(); Ferre.mensaje('Producto eliminado correctamente.'); await cargar(); return;
+      }
+      const datos = Ferre.leer(clave); protegerAdministrador(datos, eliminando, null);
       Ferre.guardar(clave, datos.filter(x => x.id !== eliminando)); confirmar.close();
       Ferre.mensaje(`${singular} eliminado correctamente.`); comprobarSesion(); cargar();
     } catch (e) { document.getElementById('errorEliminar').textContent = e.message; }

@@ -4,6 +4,7 @@ const crypto = require("node:crypto");
 const { validarProducto } = require("../../js/datos.js");
 
 const productos = require("../data/productos");
+const { asociar } = require('../services/imagenes');
 
 const STOCK_BAJO = 5;          // 5 unidades o menos se considera stock bajo
 const MAX_CANTIDAD = 10000000; // mismo límite que la validación del frontend
@@ -45,7 +46,7 @@ const crearProducto = (req, res) => {
 
     const nuevo = validarProducto(datos, productos);
     const producto = { ...nuevo, id: crypto.randomUUID() };
-
+    if (producto.imagen) asociar(producto.codigo, producto.imagen);
     productos.push(producto);
 
     res.status(201).json({
@@ -68,7 +69,7 @@ const actualizarProducto = (req, res) => {
   try {
     const datos = { ...actual, ...(req.body || {}) };
     const cambios = validarProducto(datos, productos, actual.id);
-
+    if (cambios.imagen !== actual.imagen || cambios.codigo !== actual.codigo) asociar(cambios.codigo, cambios.imagen || '', actual.codigo);
     Object.assign(actual, cambios);
 
     res.json({
@@ -126,6 +127,8 @@ const eliminarProducto = (req, res) => {
     return res.status(404).json({ mensaje: "Producto no encontrado" });
   }
 
+  try { if (productos[indice].imagen) asociar(productos[indice].codigo, ''); }
+  catch (error) { return res.status(500).json({ mensaje: error.message }); }
   const eliminado = productos.splice(indice, 1);
 
   res.json({

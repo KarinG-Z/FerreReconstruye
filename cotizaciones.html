@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#163d32">
+    <title>Cotizaciones · FerreReconstruye</title>
+    <meta name="description" content="Gestión académica de usuarios e inventario para FerreReconstruye.">
+    <link rel="icon" href="assets/marca.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/cotizaciones.css"><link rel="stylesheet" href="css/fotos.css"></head>
+
+<body class="verificando" data-pagina="cotizaciones">
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+    <div class="aplicacion">
+        <aside class="lateral"><a class="marca" href="index.html"><span class="isotipo"
+                    aria-hidden="true">F<span>↗</span></span><span>Ferre<span
+                        class="marca-acento">Reconstruye</span><small>HERRAMIENTAS PARA AVANZAR</small></span></a>
+            <p class="ceja">ESPACIO DE TRABAJO</p>
+            <nav aria-label="Navegación principal"><a href="dashboard.html"><span
+                        aria-hidden="true">▦</span>Resumen</a><a href="productos.html"><span
+                        aria-hidden="true">▤</span>Productos</a><a href="usuarios.html" data-admin><span
+                        aria-hidden="true">♙</span>Usuarios</a><a href="cotizaciones.html" aria-current="page"><span aria-hidden="true">▧</span>Cotizaciones</a></nav>
+            <div class="lateral-pie"><strong>Construimos contigo.</strong>
+                <p>Un inventario organizado es el comienzo de cada gran proyecto.</p><span class="etiqueta">AVANCE
+                    ACADÉMICO</span>
+            </div>
+        </aside>
+        <div class="area">
+            <header class="barra"><span class="ubicacion">FERRECONSTRUYE / GESTIÓN</span>
+                <div class="sesion">
+                    <div><strong id="nombreSesion"></strong><span id="rolSesion"></span></div><button type="button"
+                        id="cerrarSesion" class="secundario">Cerrar sesión</button>
+                </div>
+            </header>
+            <main id="contenido">
+<div class="titulo-pagina"><div><p class="ceja">DEL INVENTARIO A TU PRÓXIMO PROYECTO</p><h1>Cotizaciones</h1><p class="muted">Prepara propuestas grandes, sin sumar a mano.</p></div><button id="nueva" class="primario" type="button">+ Nueva cotización</button></div>
+<div id="mensaje" class="mensaje" role="status" aria-live="polite"></div>
+<div class="contenido-protegido">
+<section class="cot-banner"><div><span class="ceja">TU MESA DE COTIZACIÓN</span><h2>Más productos.<br>Menos trabajo repetitivo.</h2><p>Busca en el catálogo de la API o pega tu lista de códigos. Nosotros hacemos las cuentas.</p></div><div class="cot-indicador"><strong id="cantidadLineas">0</strong><span>referencias en tu propuesta</span><small id="autoguardado" role="status">Borrador local</small></div></section>
+<div class="cot-acciones"><strong id="numeroDocumento">Nueva cotización</strong><div><button id="abrirHistorial" type="button" class="secundario">Historial</button><button id="duplicar" type="button" class="secundario">Crear copia</button><button id="guardarCotizacion" type="button" class="primario">Guardar cotización</button><button id="vistaPrevia" type="button" class="primario">Vista e impresión ↗</button></div></div>
+<form id="datosCotizacion">
+<details class="cot-panel" open><summary>01 · Cliente y condiciones</summary><div class="cot-campos">
+<div class="doble"><label for="cliente">Nombre o razón social *</label><input id="cliente" name="cliente" required minlength="2" maxlength="120" autocomplete="organization" placeholder="¿Para quién construimos?"></div>
+<div><label for="identificacion">Identificación / NIT</label><input id="identificacion" name="identificacion" maxlength="40"></div>
+<div><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel" maxlength="40" autocomplete="tel"></div>
+<div><label for="correoCliente">Correo del cliente</label><input id="correoCliente" name="correoCliente" type="email" maxlength="150"></div>
+<div class="doble"><label for="direccion">Dirección / obra</label><input id="direccion" name="direccion" maxlength="200" autocomplete="street-address"></div>
+<div><label for="fecha">Fecha de emisión *</label><input id="fecha" name="fecha" type="date" required></div>
+<div><label for="vigencia">Válida hasta *</label><input id="vigencia" name="vigencia" type="date" required></div>
+<div><label for="estadoCotizacion">Estado de la propuesta</label><select id="estadoCotizacion" name="estadoCotizacion"><option>Borrador</option><option>Enviada</option><option>Aceptada</option><option>Anulada</option></select></div>
+<div class="doble"><label for="observaciones">Condiciones / observaciones</label><textarea id="observaciones" name="observaciones" rows="2" maxlength="2000" placeholder="Forma de pago, entrega, disponibilidad…"></textarea></div>
+</div></details>
+<details class="cot-panel"><summary>Datos de la ferretería para el comprobante</summary><div class="cot-campos">
+<div><label for="empresa">Nombre comercial *</label><input id="empresa" name="empresa" required maxlength="120" value="FerreReconstruye"></div>
+<div><label for="nitEmpresa">NIT / identificación</label><input id="nitEmpresa" name="nitEmpresa" maxlength="40" placeholder="Opcional"></div>
+<div><label for="contactoEmpresa">Teléfono / correo</label><input id="contactoEmpresa" name="contactoEmpresa" maxlength="150"></div>
+<div class="doble"><label for="direccionEmpresa">Dirección de la ferretería</label><input id="direccionEmpresa" name="direccionEmpresa" maxlength="200"></div>
+</div></details></form>
+<div class="cot-trabajo">
+<section class="cot-panel catalogo"><div class="cot-panel-cabecera"><h2>02 · Agrega productos</h2><button id="recargarCatalogo" class="accion" type="button">Actualizar catálogo</button></div><label for="buscarCatalogo">Buscar por código o nombre</label><input type="search" id="buscarCatalogo" placeholder="Ej. HER-001 o martillo" autocomplete="off"><p id="estadoCatalogo" class="ayuda" role="status">Consultando API…</p><div id="listaCatalogo" class="lista-catalogo"></div><div class="cot-paginacion"><button type="button" id="anteriorCatalogo" class="secundario">Anterior</button><span id="paginaCatalogo"></span><button type="button" id="siguienteCatalogo" class="secundario">Siguiente</button></div><button type="button" id="cargaMasiva" class="secundario ancho">Pegar lista / importar CSV ↗</button><p class="ayuda">Agregar de nuevo un producto suma su cantidad. Cotizar no reserva ni descuenta inventario.</p></section>
+<section class="cot-panel cot-detalle"><div class="cot-panel-cabecera"><h2>03 · Detalle de la propuesta</h2><button type="button" id="actualizarPrecios" class="accion">Actualizar precios de API</button></div>
+<div class="cot-globales"><div><label for="descuentoGlobal">Descuento para todas (%)</label><input id="descuentoGlobal" type="number" value="0" min="0" max="100" step="0.01"></div><div><label for="ivaGlobal">Impuesto para todas (%)</label><input id="ivaGlobal" type="number" value="0" min="0" max="100" step="0.01"></div><button id="aplicarPorcentajes" class="secundario" type="button">Aplicar a líneas</button></div>
+<p class="ayuda">Precios unitarios antes del impuesto. El porcentaje empieza en 0%; configúralo según cada producto. Los cambios masivos reemplazan los porcentajes de las líneas.</p>
+<div class="tabla-scroll" role="region" aria-label="Detalle de productos cotizados" tabindex="0"><table class="tabla-cotizacion"><caption class="sr-only">Productos de la cotización</caption><thead><tr><th scope="col">Producto</th><th scope="col">Cantidad</th><th scope="col">Precio COP</th><th scope="col">Desc. %</th><th scope="col">Imp. %</th><th scope="col">Total COP</th><th scope="col">Acción</th></tr></thead><tbody id="lineasCotizacion"></tbody></table></div>
+<div id="detalleVacio" class="cot-vacio"><span aria-hidden="true">▧</span><h3>Tu próxima propuesta empieza aquí.</h3><p>Agrega productos del catálogo o importa una lista de hasta 1.000 referencias.</p></div>
+<p id="alertaStock" class="cot-aviso" role="status" hidden></p>
+<div class="cot-resumen"><div><label for="transporte">Transporte / otros cargos (COP)</label><input id="transporte" type="number" value="0" min="0" max="10000000000" step="0.01"><p class="ayuda">Cargo final adicional, sin impuesto automático.</p></div><dl><div><dt>Subtotal bruto</dt><dd id="subtotal">$ 0</dd></div><div><dt>Descuentos</dt><dd id="descuentos">$ 0</dd></div><div><dt>Base neta</dt><dd id="base">$ 0</dd></div><div><dt>Impuestos</dt><dd id="impuestos">$ 0</dd></div><div><dt>Transporte / otros</dt><dd id="totalTransporte">$ 0</dd></div><div class="gran-total"><dt>Total de la propuesta</dt><dd id="totalCotizacion">$ 0</dd></div></dl></div>
+</section></div><p class="nota">Las cotizaciones e información del cliente se guardan en este navegador. El catálogo se consulta en la API. No se genera una factura fiscal ni se registra un pago.</p></div></main>
+<footer>FerreReconstruye · Cotizaciones <span>Catálogo API / propuestas locales</span></footer></div></div>
+<dialog id="dialogoMasivo" aria-labelledby="tituloMasivo"><h2 id="tituloMasivo">Carga masiva de productos</h2><p>Pega dos columnas de Excel o una línea por producto: <strong>código;cantidad</strong>. Se valida la lista completa antes de agregarla.</p><label for="archivoCSV">Importar archivo CSV o TXT</label><input type="file" id="archivoCSV" accept=".csv,.txt,text/csv,text/plain"><label for="textoMasivo">Lista de productos</label><textarea id="textoMasivo" rows="10" maxlength="200000" placeholder="codigo;cantidad&#10;HER-001;20&#10;HER-002;50"></textarea><p id="errorMasivo" role="alert" class="error-formulario"></p><div class="botonera"><button data-cerrar="dialogoMasivo" class="secundario" type="button">Cancelar</button><button id="importarLista" class="primario" type="button">Validar y agregar</button></div></dialog>
+<dialog id="dialogoHistorial" aria-labelledby="tituloHistorial"><h2 id="tituloHistorial">Cotizaciones guardadas</h2><label for="buscarHistorial">Buscar número o cliente</label><input type="search" id="buscarHistorial"><div id="listaHistorial"></div><div class="botonera"><button type="button" data-cerrar="dialogoHistorial" class="secundario">Cerrar historial</button></div></dialog>
+<dialog id="dialogoConfirmacion" aria-labelledby="tituloConfirmacion"><h2 id="tituloConfirmacion">Confirmar cambio</h2><p id="textoConfirmacion"></p><p id="errorConfirmacion" role="alert" class="error-formulario"></p><div class="botonera"><button type="button" data-cerrar="dialogoConfirmacion" class="secundario" autofocus>Cancelar</button><button type="button" id="aceptarConfirmacion" class="primario">Continuar</button></div></dialog>
+<dialog id="dialogoImpresion" class="dialogo-impresion" aria-labelledby="tituloImpresion"><div class="controles-impresion"><div><h2 id="tituloImpresion">Tu propuesta, lista para entregar.</h2><p>Imprime o elige «Guardar como PDF» en tu navegador.</p></div><div class="botonera"><label for="formatoImpresion">Formato</label><select id="formatoImpresion"><option value="a4">A4 · cotizaciones grandes</option><option value="ticket">Recibo · papel de 80 mm</option></select><button id="imprimir" type="button" class="primario">Imprimir / guardar PDF</button><button data-cerrar="dialogoImpresion" type="button" class="secundario">Volver a editar</button></div></div><div class="impresora" aria-hidden="true"><img src="assets/marca.svg" alt=""><span>FERRECONSTRUYE<br><small>Tu cotización está lista</small></span><strong id="importeImpresora"></strong></div><div class="salida-papel"><article id="comprobante" class="comprobante a4"></article></div><p class="texto-impresion"><span id="estadoImpresion" role="status" aria-live="polite">Preparando comprobante…</span> <button id="repetirAnimacion" type="button">Repetir animación</button></p></dialog>
+<script src="js/datos.js" defer></script><script src="js/almacen.js" defer></script><script src="js/api.js" defer></script><script src="js/fotos.js" defer></script><script src="js/sesion.js" defer></script><script src="js/tienda-datos.js" defer></script><script src="js/cotizacion-datos.js" defer></script><script src="js/cotizaciones.js" defer></script></body></html>
