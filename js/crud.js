@@ -9,7 +9,7 @@
   let editando = null;
   let eliminando = null;
   const fotos = esUsuario ? null : FerreFotos.configurar();
-  const puedeEditar = () => Ferre.sesion()?.rol === 'Administrador';
+  const puedeEditar = () => usuarioActual?.rol === 'Administrador';
   function autorizar() { FerreDatos.exigir(puedeEditar(), 'Solo un administrador puede realizar cambios.'); }
   function celda(fila, valor) { const td = document.createElement('td'); td.textContent = valor; fila.append(td); return td; }
   function boton(fila, texto, accion, clase = '') {
@@ -20,7 +20,7 @@
     if (!usuarioActual) return;
     try {
       if (esUsuario && !puedeEditar()) return;
-      const todos = esUsuario ? Ferre.leer(clave) : (await FerreApi.listarProductos()).productos;
+      const todos = esUsuario ? (await FerreApi.listarUsuarios()).usuarios : (await FerreApi.listarProductos()).productos;
       const q = document.getElementById('buscar').value.trim().toLocaleLowerCase('es');
       const filtro = document.getElementById('filtro').value;
       const estado = document.getElementById('filtroEstado').value;
@@ -57,13 +57,6 @@
       }
     } catch (e) { Ferre.mensaje(e.message, true); }
   }
-  function protegerAdministrador(datos, id, reemplazo) {
-    if (!esUsuario) return;
-    const anterior = datos.find(x => x.id === id);
-    if (anterior?.rol === 'Administrador' && anterior.estado === 'Activo' && !(reemplazo?.rol === 'Administrador' && reemplazo.estado === 'Activo')) {
-      FerreDatos.exigir(datos.some(x => x.id !== id && x.rol === 'Administrador' && x.estado === 'Activo'), 'Debe permanecer al menos un administrador activo.');
-    }
-  }
   function abrir(x = null) {
     try {
       autorizar(); editando = x?.id || null; formulario.reset();
@@ -89,31 +82,19 @@
        cargar();
       return;
       }
-      let todos = Ferre.leer(clave);
-      let nuevo = esUsuario ? FerreDatos.validarUsuario(datos, todos, editando) : FerreDatos.validarProducto(datos, todos, editando);
-      let credencial;
-      if (esUsuario && (!editando || datos.password)) credencial = await Ferre.credencial(datos.password);
-      autorizar(); todos = Ferre.leer(clave);
-      nuevo = esUsuario ? FerreDatos.validarUsuario(datos, todos, editando) : FerreDatos.validarProducto(datos, todos, editando);
-      if (editando) {
-        FerreDatos.exigir(todos.some(x => x.id === editando), 'El registro ya no existe. Cierra este formulario y actualiza la lista.');
-        protegerAdministrador(todos, editando, nuevo);
-        todos = todos.map(x => x.id === editando ? { ...x, ...nuevo, ...(credencial ? { credencial } : {}) } : x);
-      } else todos.push({ ...nuevo, id: crypto.randomUUID(), ...(credencial ? { credencial } : {}) });
-      Ferre.guardar(clave, todos);
+      if (editando) await FerreApi.actualizarUsuario(editando, datos);
+      else await FerreApi.crearUsuario(datos);
       dialogo.close(); Ferre.mensaje(`${singular} ${editando ? 'actualizado' : 'registrado'} correctamente.`);
-      comprobarSesion(); cargar();
+      await comprobarSesion(); cargar();
     } catch (e) { document.getElementById('errorFormulario').textContent = e.message; }
     finally { b.disabled = false; }
   });
-  function cambiarEstado(x) {
+  async function cambiarEstado(x) {
     try {
-      autorizar(); const datos = Ferre.leer(clave); const actual = datos.find(u => u.id === x.id);
-      FerreDatos.exigir(actual, 'El usuario ya no existe.');
-      const nuevo = { ...actual, estado: actual.estado === 'Activo' ? 'Inactivo' : 'Activo' };
-      protegerAdministrador(datos, x.id, nuevo);
-      Ferre.guardar(clave, datos.map(u => u.id === x.id ? nuevo : u));
-      Ferre.mensaje('Estado actualizado correctamente.'); comprobarSesion(); cargar();
+      autorizar();
+      await FerreApi.actualizarUsuario(x.id, { estado: x.estado === 'Activo' ? 'Inactivo' : 'Activo' });
+      Ferre.mensaje('Estado actualizado correctamente.');
+      await comprobarSesion(); cargar();
     } catch (e) { Ferre.mensaje(e.message, true); }
   }
   function pedirEliminar(x) {
@@ -128,9 +109,8 @@
         await FerreApi.eliminarProducto(eliminando);
         confirmar.close(); Ferre.mensaje('Producto eliminado correctamente.'); await cargar(); return;
       }
-      const datos = Ferre.leer(clave); protegerAdministrador(datos, eliminando, null);
-      Ferre.guardar(clave, datos.filter(x => x.id !== eliminando)); confirmar.close();
-      Ferre.mensaje(`${singular} eliminado correctamente.`); comprobarSesion(); cargar();
+      await FerreApi.eliminarUsuario(eliminando); confirmar.close();
+      Ferre.mensaje(`${singular} eliminado correctamente.`); await comprobarSesion(); cargar();
     } catch (e) { document.getElementById('errorEliminar').textContent = e.message; }
   });
   document.getElementById('nuevo').addEventListener('click', () => abrir());

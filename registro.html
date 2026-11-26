@@ -49,13 +49,8 @@
                         name="password" type="password" required autocomplete="new-password" minlength=8
                         maxlength=128><label for="confirmacion">Confirmar contraseña</label><input id="confirmacion"
                         name="confirmacion" type="password" required minlength="8" maxlength="128"
-                        autocomplete="new-password"><label for="rol">Rol</label><select id="rol" name="rol" required>
-                        <option value="">Selecciona una opción</option>
-                        <option>Administrador</option>
-                        <option>Usuario</option>
-                    </select>
-                    <p class="ayuda">Selección libre de rol solo para este taller. Crea primero una cuenta Administrador
-                        para gestionar el inventario.</p><button class="primario ancho" type="submit">Crear cuenta <span
+                        autocomplete="new-password">
+                    <p class="ayuda">Las cuentas nuevas se registran con el rol Usuario.</p><button class="primario ancho" type="submit">Crear cuenta <span
                             aria-hidden="true">↗</span></button>
                 </form>
                 <p class="cambio">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
@@ -66,6 +61,7 @@
     </div>
     <script src="js/datos.js" defer></script>
     <script src="js/almacen.js" defer></script>
+    <script src="js/api.js" defer></script>
     <script src="js/registro.js" defer></script>
 </body>
 

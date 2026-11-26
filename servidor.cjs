@@ -29,7 +29,8 @@ http.createServer((req, res) => {
   catch { res.writeHead(400); res.end('Solicitud inválida'); return; }
   const archivo = path.resolve(raiz, '.' + (ruta === '/' ? '/index.html' : ruta));
   const ext = path.extname(archivo);
-  if (!archivo.startsWith(raiz + path.sep) || !tipos[ext]) { res.writeHead(403); res.end('No disponible'); return; }
+  const publica = path.relative(raiz, archivo).split(path.sep).join('/');
+  if (!archivo.startsWith(raiz + path.sep) || !tipos[ext] || !/^(?:[^/]+\.html$|js\/|css\/|assets\/)/.test(publica)) { res.writeHead(403); res.end('No disponible'); return; }
   fs.readFile(archivo, (error, datos) => {
     if (error) { res.writeHead(404); res.end('Archivo no encontrado'); return; }
     res.writeHead(200, { 'Content-Type': tipos[ext], 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(datos);

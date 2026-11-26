@@ -1,5 +1,5 @@
 'use strict';
-(() => {
+ferreSesionLista.then(() => {
   if (!usuarioActual) return;
   const $ = id => document.getElementById(id);
   const D = FerreCotDatos;
@@ -13,7 +13,7 @@
   const fechaLegible = fecha => new Date(fecha + 'T12:00:00').toLocaleDateString('es-CO', { year: 'numeric', month: 'short', day: 'numeric' });
   const dinero = centavos => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(centavos / 100);
   function exigirSesion() {
-    const actual = Ferre.sesion();
+    const actual = usuarioActual;
     D.numero(actual ? 1 : 0, 'Sesión activa', 1, 1);
     if (documento && documento.creadorId !== actual.id && actual.rol !== 'Administrador') throw Error('Esta cotización pertenece a otro usuario.');
     return actual;
@@ -269,11 +269,11 @@
   }));
   window.addEventListener('afterprint', () => delete document.body.dataset.impresion);
   window.addEventListener('beforeunload', () => {
-    try { if (Ferre.sesion()) { sincronizar(); Ferre.guardar(borradorClave, documento); } } catch { /* No impedir la salida del navegador. */ }
+    try { if (usuarioActual) { sincronizar(); Ferre.guardar(borradorClave, documento); } } catch { /* No impedir la salida del navegador. */ }
   });
   try {
     const almacenado = localStorage.getItem(borradorClave), doc = almacenado ? JSON.parse(almacenado) : crear();
     if (!doc?.id || !doc.cliente || !doc.empresa || !Array.isArray(doc.items)) throw Error('El borrador no es compatible. Se conservó sin sobrescribir.');
     mostrarDocumento(doc); cargarCatalogo();
   } catch (e) { documento = crear(); mostrarDocumento(documento); cargarCatalogo(); Ferre.mensaje(`No se pudo recuperar el borrador: ${e.message}`, true); }
-})();
+});

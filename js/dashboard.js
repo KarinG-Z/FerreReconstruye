@@ -8,10 +8,10 @@ async function resumen() {
     document.getElementById('totalProductos').textContent = productos.length;
     document.getElementById('stockBajo').textContent = activos.filter(p => p.cantidad <= 5).length;
     document.getElementById('valorInventario').textContent = Ferre.dinero(activos.reduce((s, p) => s + p.precio * p.cantidad, 0));
-    document.getElementById('totalUsuarios').textContent = Ferre.leer('usuarios').length;
+    document.getElementById('totalUsuarios').textContent = usuarioActual.rol === 'Administrador' ? (await FerreApi.listarUsuarios()).total : '—';
   } catch (e) { Ferre.mensaje(e.message, true); }
 }
 
-resumen();
+ferreSesionLista.then(resumen);
 
 window.addEventListener('storage', resumen);

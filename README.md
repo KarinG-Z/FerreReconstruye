@@ -2,14 +2,16 @@
 
 Proyecto académico de ferretería. Se incorporó `origin/main` hasta el commit `8897ee9` (API del compañero) y se integró el módulo de cotizaciones. Cambios del nuevo módulo guardados localmente, sin publicar en GitHub.
 
-## Abrir con Live Server
+## Iniciar con MySQL de Ubuntu
 
-1. Abre esta carpeta en VS Code y ejecuta Live Server en `index.html` para el sitio público o en `login.html` para ingresar al sistema.
-2. Ejecuta `IniciarAPI.cmd` y deja abierta su ventana. La primera vez instala las dependencias. Alternativa desde la raíz: `npm ci --ignore-scripts` y después `npm run api`.
-3. Inicia sesión con tu cuenta habitual. Usa siempre el mismo host y puerto de Live Server para conservar cuentas y cotizaciones.
-4. En el menú aparece **Cotizaciones**. También hay un acceso desde el dashboard.
+Consulta la [guía técnica de integración](INTEGRACION_MYSQL.md) para configurar otro equipo, revisar el recorrido del CRUD y preparar la exposición.
 
-Sin Live Server: `npm start` sirve las páginas en `http://localhost:4173`; la API requiere otra terminal con `npm run api`. Node.js 18 o posterior.
+Requiere Node.js 20.12 o posterior. En PowerShell abre Ubuntu con `wsl -d Ubuntu`; ejecuta `sudo systemctl start mysql` y deja esa terminal abierta mientras usas el proyecto.
+
+1. En la raíz, instala dependencias con `npm ci`. Configura `.env` a partir de `.env.example` si estás en otro equipo. En este equipo la cuenta local de la API usa MySQL de Ubuntu en el puerto 33919.
+2. Inicia Express con `npm run api` y abre `http://localhost:3000/api/conexion` para comprobar base y puerto.
+3. En otra terminal ejecuta `npm start` y abre `http://localhost:4173`. También puedes usar Live Server local en los puertos 5500 y 5501. Usa el mismo nombre de host en cada sesión.
+4. Regístrate desde la web para crear una cuenta Usuario. Para crear un administrador inicial, desde PowerShell en la raíz define `FERRE_ADMIN_EMAIL`, `FERRE_ADMIN_PASSWORD` y ejecuta `npm run admin`. Usa PowerShell 7 con `Read-Host -MaskInput` para introducir la contraseña. Elimina esa variable de la terminal tras ejecutar el comando.
 
 ## Preparar una cotización grande
 
@@ -44,16 +46,24 @@ Se valida toda la lista antes de agregarla. Un código desconocido, inactivo o u
 
 ## Persistencia y alcance
 
+### Script MySQL
+
+Abre `FerreReconstruye.mysql.sql` en MySQL Workbench y ejecútalo completo con MySQL 8.0.16 o posterior, en una conexión donde todavía no exista la base `ferre_reconstruye_entregable2`. Crea las 14 tablas y 20 claves foráneas del diagrama, carga el catálogo de 100 productos y deja al menos cinco filas por tabla con datos académicos ficticios. Incluye dos actualizaciones, dos borrados válidos y cinco operaciones fallidas comentadas con sus mensajes de MySQL.
+
+Para las evidencias, el final del archivo contiene los 14 `SELECT *`. Los cuatro `INSERT` inválidos de la Parte 4 se pueden ejecutar individualmente en Workbench para capturar sus errores.
+
+El script prepara la base. Las cuentas de demostración del entregable son inactivas. El registro desde la web crea cuentas nuevas en MySQL. Los historiales y borradores que ya existían siguen en el navegador y conservan su identificador de propietario original.
+
 | Información | Almacenamiento |
 |---|---|
-| Productos | API Express del compañero, puerto 3000; datos en memoria |
-| Usuarios / sesión | LocalStorage (`usuarios`, `usuarioSesion`) |
+| Productos e inventario | MySQL mediante Express, puerto HTTP 3000 |
+| Usuarios / sesión | Cuentas en MySQL. Sesión temporal en Express con cookie HttpOnly |
 | Cotizaciones guardadas | LocalStorage (`ferreCotizaciones`) |
 | Borrador recuperable | LocalStorage, clave por usuario `ferreBorrador:<id>` |
 
-La API actual no usa base de datos: sus cambios se restablecen al reiniciarla. Las cotizaciones conservan sus precios y datos localmente. No se sincronizan entre computadores ni distintos orígenes del navegador. Evita editar la misma cotización en varias pestañas. Cada guardado incrementa su revisión, pero no crea un historial completo de revisiones anteriores. Guarda antes de abrir otra propuesta. Exporta PDF para conservar una copia independiente del navegador.
+Las cotizaciones conservan sus precios y datos localmente. No se sincronizan entre computadores ni distintos orígenes del navegador. Evita editar la misma cotización en varias pestañas. Cada guardado incrementa su revisión, pero no crea un historial completo de revisiones anteriores. Guarda antes de abrir otra propuesta. Exporta PDF para conservar una copia independiente del navegador.
 
-**El módulo se llama Cotizaciones. El documento generado se titula PREFACTURA; no es una factura fiscal ni un comprobante de pago.** El prototipo no incorpora emisión fiscal, cobros, descuentos de inventario por venta ni envío a terceros. No se guardan contraseñas en texto plano: se conserva la derivación PBKDF2 original. Usuarios y autorización en LocalStorage, y la API de productos sin autenticación de servidor, son exclusivamente académicos; no son un sistema de seguridad de producción.
+**El módulo se llama Cotizaciones. El documento generado se titula PREFACTURA; no es una factura fiscal ni un comprobante de pago.** El prototipo no incorpora emisión fiscal, cobros, descuentos de inventario por venta ni envío a terceros. No se guardan contraseñas en texto plano: se conserva la derivación PBKDF2 original. La autorización para gestionar usuarios y productos se valida en Express. Las sesiones se cierran al reiniciar la API.
 
 ## Pruebas
 

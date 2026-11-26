@@ -8,7 +8,7 @@
     $('mensajePublico').textContent = mensaje; $('mensajePublico').className = 'toast-tienda visible' + (error ? ' error' : '');
     clearTimeout(aviso.fin); aviso.fin = setTimeout(() => $('mensajePublico').classList.remove('visible'), 5000);
   }
-  function seguro(accion) { return (...args) => { try { return accion(...args); } catch (e) { aviso(e.message, true); } }; }
+  function seguro(accion) { return async (...args) => { try { return await accion(...args); } catch (e) { aviso(e.message, true); } }; }
   function nodo(tag, texto, clase) { const n = document.createElement(tag); if (texto !== undefined) n.textContent = texto; if (clase) n.className = clase; return n; }
   function boton(texto, accion, clase) { const b = nodo('button', texto, clase); b.type = 'button'; b.addEventListener('click', seguro(accion)); return b; }
   function guardarLista(nueva) {
@@ -93,8 +93,8 @@
   }
   function cambiarCantidad(codigo, cantidad) { guardarLista(lista.map(x => x.codigo === codigo ? { codigo, cantidad } : x)); pintarLista(); }
   function abrirLista() { pintarLista(); $('listaDialogo').showModal(); }
-  function cuenta() {
-    try { const u = Ferre.sesion(); if (u) { $('accesoCuenta').href = 'dashboard.html'; $('accesoCuenta').setAttribute('aria-label', 'Abrir mi panel'); $('accesoGestion').href = 'dashboard.html'; $('accesoGestion').textContent = 'Mi panel ↗'; } } catch { /* El catálogo público sigue disponible sin una sesión válida. */ }
+  async function cuenta() {
+    try { const { usuario: u } = await FerreApi.sesion(); if (u) { $('accesoCuenta').href = 'dashboard.html'; $('accesoCuenta').setAttribute('aria-label', 'Abrir mi panel'); $('accesoGestion').href = 'dashboard.html'; $('accesoGestion').textContent = 'Mi panel ↗'; } } catch { /* El catálogo público sigue disponible sin una sesión válida. */ }
   }
   async function cargar() {
     $('reintentarCatalogo').hidden = true;
@@ -117,9 +117,9 @@
   document.querySelectorAll('[data-destacados]').forEach(b => b.addEventListener('click', () => { categoriaDestacada = b.dataset.destacados; document.querySelectorAll('[data-destacados]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); pintarDestacados(); }));
   $('destacadosAnterior').addEventListener('click', () => $('destacados').scrollBy({ left: -$('destacados').clientWidth * .8, behavior: 'smooth' })); $('destacadosSiguiente').addEventListener('click', () => $('destacados').scrollBy({ left: $('destacados').clientWidth * .8, behavior: 'smooth' }));
   for (const id of ['abrirLista', 'listaDesdeFooter', 'cotizarProyecto']) $(id).addEventListener('click', seguro(abrirLista));
-  $('continuarCotizacion').addEventListener('click', seguro(() => {
+  $('continuarCotizacion').addEventListener('click', seguro(async () => {
     guardarLista(lista); if (D.resumen(lista, productos).incompleta) throw Error('Revisa los productos no disponibles antes de continuar.');
-    let sesion; try { sesion = Ferre.sesion(); } catch { sesion = null; }
+    let sesion; try { ({ usuario: sesion } = await FerreApi.sesion()); } catch { sesion = null; }
     location.href = sesion ? 'cotizaciones.html?desde=tienda' : 'login.html?continuar=cotizaciones';
   }));
   document.querySelectorAll('[data-cerrar]').forEach(b => b.addEventListener('click', () => $(b.dataset.cerrar).close()));
